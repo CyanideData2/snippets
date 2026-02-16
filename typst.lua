@@ -148,7 +148,6 @@ end
 
 return {
     -- NOTE: Remove auto snippet in the future,
-    s({ trig = 'toc', snippetType = 'autosnippet' }, t '#outline()', { condition = line_begin }),
     s(
         { trig = '#grid', snippetType = 'autosnippet' },
         fmta(
@@ -194,23 +193,14 @@ supplement: <>,
         ),
         { condition = in_codezone }
     ),
-    -- SUBSCRIPT
-    -- s(
-    --   { trig = "([%w%)%]%}|])ss", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    --   fmta("<>_(<>)", {
-    --     f(function(_, snip)
-    --       return snip.captures[1]
-    --     end),
-    --     d(1, get_visual),
-    --   }),
-    --   { condition = in_mathzone }
-    -- ),
-    s(
+    --- 1. Number combination (Sub and super)
+    s( -- CY APPROVED
         {
-            trig = '([%w%)%]%}|])jj',
-            desc = 'Subscript(no ambiguity)',
+            trig = '([%w%)%]%}|])__',
+            desc = 'Subscript with parenthesis',
             wordTrig = false,
             regTrig = true,
+            hidden = true,
             snippetType = 'autosnippet',
         },
         fmta('<>_(<>)', {
@@ -221,25 +211,13 @@ supplement: <>,
         }),
         { condition = in_mathzone }
     ),
-    -- s(
-    --   { trig = "([%w%)%]%}|])s([ijknmt])", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    --   fmta("<>_(<>)<>", {
-    --     f(function(_, snip)
-    --       return snip.captures[1]
-    --     end),
-    --     f(function(_, snip)
-    --       return snip.captures[2]
-    --     end),
-    --     i(0),
-    --   }),
-    --   { condition = in_mathzone }
-    -- ),
-    s(
+    s( -- CY APPROVED
         {
-            trig = '([%w%)%]%}|])j([ijknmtvd])',
+            trig = '([%w%)%]%}|])_([ijknm])',
+            desc = 'Automatic subcript for usual letter indices',
             wordTrig = false,
-            desc = 'subscript',
             regTrig = true,
+            hidden = true,
             snippetType = 'autosnippet',
         },
         fmta('<>_(<>)<>', {
@@ -253,75 +231,15 @@ supplement: <>,
         }),
         { condition = in_mathzone }
     ),
-    -- SUBSCRIPT
-    -- s(
-    --   { trig = "([%w%)%]%}|])s(%d+)", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    --   fmta("<>_(<>)<>", {
-    --     f(function(_, snip)
-    --       return snip.captures[1]
-    --     end),
-    --     f(function(_, snip)
-    --       return snip.captures[2]
-    --     end),
-    --     i(0),
-    --   }),
-    --   { condition = in_mathzone }
-    -- ),
-    -- SUBSCRIPT
-    s(
-        { trig = '([%w%)%]%}|])j(%d+)', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-        fmta('<>_(<>)<>', {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            f(function(_, snip)
-                return snip.captures[2]
-            end),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
+    s( -- CY APPROVED
         {
-            trig = '([%w%)%]%}|])J',
-            desc = 'Subscript(no ambiguity)',
+            trig = '([%a%)%]%}|])(%d+)',
+            desc = 'Automatic number index',
             wordTrig = false,
             regTrig = true,
+            hidden = true,
             snippetType = 'autosnippet',
         },
-        fmta('<>_(<>)', {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            d(1, get_visual),
-        }),
-        { condition = in_mathzone }
-    ),
-    -- -- SUPERSCRIPT
-    -- s(
-    --   { trig = "([%w%)%]%}%|])aa", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    --   fmta("<>^(<>)<>", {
-    --     f(function(_, snip)
-    --       return snip.captures[1]
-    --     end),
-    --     d(1, get_visual),
-    --     i(0),
-    --   }),
-    --   { condition = in_mathzone }
-    -- ),
-    s(
-        { trig = '([%w%)%]%}|])kk', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-        fmta('<>^(<>)', {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            d(1, get_visual),
-        }),
-        { condition = in_mathzone }
-    ),
-    --- CYANIDE CUSTOM SUBSCRIPT
-    s(
-        { trig = '([%a%)%]%}|]%D)(%d+)', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
         fmta('<>_<> <>', {
             f(function(_, snip)
                 return snip.captures[1]
@@ -333,61 +251,16 @@ supplement: <>,
         }),
         { condition = in_mathzone }
     ),
-    -- s(
-    --   { trig = "([%w%)%]%}|])a(%d+)", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    --   fmta("<>^(<>)<>", {
-    --     f(function(_, snip)
-    --       return snip.captures[1]
-    --     end),
-    --     f(function(_, snip)
-    --       return snip.captures[2]
-    --     end),
-    --     i(0),
-    --   }),
-    --   { condition = in_mathzone }
-    -- ),
-    s(
-        { trig = '([%w%)%]%}|])k(%d+)', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-        fmta('<>^(<>)<>', {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            f(function(_, snip)
-                return snip.captures[2]
-            end),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    --- TODO: Conflicts with mat no t then
-    -- s(
-    --   { trig = "([%w%)%]%}|])a([ijknm])", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    --   fmta("<>^(<>)<>", {
-    --     f(function(_, snip)
-    --       return snip.captures[1]
-    --     end),
-    --     f(function(_, snip)
-    --       return snip.captures[2]
-    --     end),
-    --     i(0),
-    --   }),
-    --   { condition = in_mathzone }
-    -- ),
-    s(
-        { trig = '([%w%)%]%}|])k([ijknmtvd])', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-        fmta('<>^(<>)<>', {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            f(function(_, snip)
-                return snip.captures[2]
-            end),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = '([%w%)%]%}|])K', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    -- SUBSCRIPT
+    s( -- CY APPROVED
+        {
+            trig = '([%w%)%]%}|])rp',
+            desc = 'Mnonetic superscript ([R]aised [P]ower)',
+            wordTrig = false,
+            regTrig = true,
+            hidden = true,
+            snippetType = 'autosnippet',
+        },
         fmta('<>^(<>)', {
             f(function(_, snip)
                 return snip.captures[1]
@@ -396,8 +269,47 @@ supplement: <>,
         }),
         { condition = in_mathzone }
     ),
+    s( -- CY APPROVED
+        { trig = '([%w%)%]%}|])sq', desc = '[S][Q]uare', wordTrig = false, regTrig = true, snippetType = 'autosnippet', hidden = true },
+        fmta('<>^2 <>', {
+            f(function(_, snip)
+                return snip.captures[1]
+            end),
+            i(0),
+        }),
+        { condition = in_mathzone }
+    ),
+    s( -- CY APPROVED
+        { trig = '([%w%)%]%}|])cb', desc = '[C]u[B]ed', wordTrig = false, regTrig = true, snippetType = 'autosnippet', hidden = true },
+        fmta('<>^2 <>', {
+            f(function(_, snip)
+                return snip.captures[1]
+            end),
+            i(0),
+        }),
+        { condition = in_mathzone }
+    ),
+    s( -- CY APPROVED
+        {
+            trig = '([%w%)%]%}|])^([ijknm])',
+            desc = 'Automatic superscript for usual letter indices',
+            wordTrig = false,
+            regTrig = true,
+            snippetType = 'autosnippet',
+        },
+        fmta('<>^(<>)<>', {
+            f(function(_, snip)
+                return snip.captures[1]
+            end),
+            f(function(_, snip)
+                return snip.captures[2]
+            end),
+            i(0),
+        }),
+        { condition = in_mathzone }
+    ),
     -- INVERSE
-    s(
+    s( -- CY APPROVED
         { trig = '([%w%)%]%}])inv', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
         fmta([[<>^(-1)<>]], {
             f(function(_, snip)
@@ -408,8 +320,8 @@ supplement: <>,
         { condition = in_mathzone }
     ),
     -- DAGGER
-    s(
-        { trig = '([%w%)%]%}])dagger', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    s( -- CY APPROVED
+        { trig = '([%w%)%]%}])dag', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
         fmta([[<>^(dagger)<>]], {
             f(function(_, snip)
                 return snip.captures[1]
@@ -418,6 +330,7 @@ supplement: <>,
         }),
         { condition = in_mathzone }
     ),
+    --- 2. Big Symbols
     --- This kinda works with \infty and \int too!
     --- NOTE: This won't expand on newline but I tried a regTrig and that did not work
     --- its probably because trigger_does_not_follow_alpha_char has a bug on newlines
@@ -428,7 +341,17 @@ supplement: <>,
     -- ),
     s(
         { trig = 'int', wordTrig = false, snippetType = 'autosnippet' },
-        fmta('integral_(<>)^(<>)<>', {
+        --- idk if "integral" would be better instead of the symbol
+        fmta('∫_(<>)^(<>)<>', {
+            d(1, get_visual),
+            i(2),
+            i(0),
+        }),
+        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
+    ),
+    s(
+        { trig = 'sum', wordTrig = false, snippetType = 'autosnippet' },
+        fmta('sum_(<>)^(<>)<>', {
             d(1, get_visual),
             i(2),
             i(0),
@@ -436,12 +359,9 @@ supplement: <>,
         { condition = in_mathzone * trigger_does_not_follow_alpha_char }
     ),
     --- https://github.com/michaelfortunato/luasnip-latex-snippets.nvim/blob/main/lua/luasnip-latex-snippets/math_iA.lua
-    --- Again, all of these are covered correctly by Typst!
-    -- s({ trig = "RR", snippetType = "autosnippet" }, t("\\mathbb{R}"), { condition = in_mathzone }),
-    -- s({ trig = "QQ", snippetType = "autosnippet" }, t("\\mathbb{Q}"), { condition = in_mathzone }),
-    -- s({ trig = "NN", snippetType = "autosnippet" }, t("\\mathbb{N}"), { condition = in_mathzone }),
-    -- s({ trig = "ZZ", snippetType = "autosnippet" }, t("\\mathbb{Z}"), { condition = in_mathzone }),
-    --- Operations
+
+    --- 3. Alone Symbols
+    --- 3.1 Operations
     s({
         trig = '*',
         name = '_turn_asterix_to_dot',
@@ -449,38 +369,22 @@ supplement: <>,
         hidden = true,
         wordTrig = false,
         snippetType = 'autosnippet',
-    }, t ' dot ', { condition = in_mathzone }),
-    --- Relations
-    s({
-        trig = '=',
-        name = '_insert_equal_sign_as_text_node',
-        desc = "Insert a text node in math mode to tab over it. It's nice!",
-        hidden = true,
-        snippetType = 'autosnippet',
-    }, t '=', { condition = in_mathzone }),
-    s({ trig = 'implies', snippetType = 'autosnippet' }, t '==>', { condition = in_mathzone }),
-    --- For now going to make this a snippet
-    s({ trig = 'implies', snippetType = 'autosnippet' }, t '==>', { condition = in_mathzone }),
-    s({ trig = 'neq', snippetType = 'autosnippet' }, t '!=', { condition = in_mathzone }),
-    s({ trig = 'leq', snippetType = 'autosnippet' }, t '<=', { condition = in_mathzone }),
-    s({ trig = 'geq', snippetType = 'autosnippet' }, t '>=', { condition = in_mathzone }),
-    s({ trig = 'isomorphism', snippetType = 'autosnippet' }, t 'tilde.equiv', { condition = in_mathzone }),
-    -- s({ trig = "-->", snippetType = "autosnippet" }, t(" arrow.r.long"), { condition = in_mathzone }),
-    -- s({ trig = ">=", snippetType = "autosnippet" }, t("gt.eq"), { condition = in_mathzone }),
-    -- s({ trig = "<=", snippetType = "autosnippet" }, t("\\leq"), { condition = in_mathzone }),
-    s({ trig = '~~', snippetType = 'autosnippet' }, t 'tilde.op', { condition = in_mathzone }),
-    s({ trig = 'sim', snippetType = 'autosnippet' }, t 'tilde.op', { condition = in_mathzone }),
-    s({ trig = 'to ', snippetType = 'autosnippet' }, t '-> ', { condition = in_mathzone }),
-    --- TODO: See if I actually use these
-    s({ trig = '<|', snippetType = 'autosnippet' }, t 'lt.tri', { condition = in_mathzone }),
-    s({ trig = '<j', snippetType = 'autosnippet' }, t 'lt.tri.eq', { condition = in_mathzone }),
-    -- s({ trig = "lt.tri.eq", snippetType = "autosnippet" }, t("lt.tri.eq"), { condition = in_mathzone }),
-    -- s({ trig = "lt.tri", snippetType = "autosnippet" }, t("lt.tri "), { condition = in_mathzone }),
-    s({ trig = 'normalsubgroup', snippetType = 'autosnippet' }, t 'lt.tri.eq', { condition = in_mathzone }),
-    s({ trig = 'normalpsubgroup', snippetType = 'autosnippet' }, t 'lt.tri', { condition = in_mathzone }),
-    -- Operators
+    }, t '· ', { condition = in_mathzone }),
+    s({ trig = 'nab', snippetType = 'autosnippet' }, t 'nabla', { condition = in_mathzone }),
+    s(
+        { trig = '~~', wordTrig = false, snippetType = 'autosnippet' },
+        fmta('tilde<>', {
+            i(0),
+        }),
+        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
+    ),
+    --- Implemented in template
+    -- s({ trig = ' o ', snippetType = 'autosnippet' }, t 'compose', { condition = in_mathzone }), 
+    -- s({ trig = 'part', snippettype = 'autosnippet' }, t 'partial', { condition = in_mathzone }),
+    --- 3.2 Relations
+
+    --- 4. Surrounding
     s({ trig = '||', snippetType = 'autosnippet' }, fmta('norm(<>)<>', { i(1), i(0) }), { condition = in_mathzone }),
-    --- FIXME: This one is tricky, I think this works though smoothly so long as I put the space back `\mid `
     s({ trig = '| ', snippetType = 'autosnippet' }, t 'bar.v ', { condition = in_mathzone }),
     -- Interesting...
     s(
@@ -490,28 +394,23 @@ supplement: <>,
         end), i(0) }),
         { condition = in_mathzone }
     ),
-    -- --- Let "@" namespace operators
-    s({ trig = '@g', snippetType = 'autosnippet' }, t 'nabla', { condition = in_mathzone }),
-    s({ trig = '@p', snippetType = 'autosnippet' }, t 'partial', { condition = in_mathzone }),
-    s({ trig = '@c', snippetType = 'autosnippet' }, t 'compose', { condition = in_mathzone }),
+    --- 5. Fractions
+    --- 5.1 Derivatives
     s(
         { trig = 'd([xytsruv])d([xytsruv])', regTrig = true, snippetType = 'autosnippet' },
-        fmta(
-            '(d <>)/(d <>)<>',
-            {
-                f(function(_, snip)
-                    return snip.captures[1]
-                end),
-                f(function(_, snip)
-                    return snip.captures[2]
-                end),
-                i(0),
-            }
-        ),
+        fmta('(d <>)/(d <>)<>', {
+            f(function(_, snip)
+                return snip.captures[1]
+            end),
+            f(function(_, snip)
+                return snip.captures[2]
+            end),
+            i(0),
+        }),
         { condition = in_mathzone }
     ),
     s(
-        { trig = 'dd([xytsruv])', snippetType = 'autosnippet', regTrig = true},
+        { trig = 'dd([xytsruv])', snippetType = 'autosnippet', regTrig = true },
         fmta('(d <>)/(d <>)<>', {
             d(1, get_visual),
             f(function(_, snip)
@@ -523,22 +422,19 @@ supplement: <>,
     ),
     s(
         { trig = 'p([xytsruv])p([xytsruv])', regTrig = true, snippetType = 'autosnippet' },
-        fmta(
-            '(partial <>)/(partial <>)<>',
-            {
-                f(function(_, snip)
-                    return snip.captures[1]
-                end),
-                f(function(_, snip)
-                    return snip.captures[2]
-                end),
-                i(0),
-            }
-        ),
+        fmta('(partial <>)/(partial <>)<>', {
+            f(function(_, snip)
+                return snip.captures[1]
+            end),
+            f(function(_, snip)
+                return snip.captures[2]
+            end),
+            i(0),
+        }),
         { condition = in_mathzone }
     ),
     s(
-        { trig = 'pp([xytsruv])', snippetType = 'autosnippet', regTrig = true},
+        { trig = 'pp([xytsruv])', snippetType = 'autosnippet', regTrig = true },
         fmta('(partial <>)/(partial <>)<>', {
             d(1, get_visual),
             f(function(_, snip)
@@ -549,103 +445,16 @@ supplement: <>,
         { condition = in_mathzone }
     ),
 
-    s(
-        { trig = 'lr(', wordTrig = false, snippetType = 'autosnippet' },
-        fmta('lr(( <> ))<>', {
-            iv(1),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = 'lr{', wordTrig = false, snippetType = 'autosnippet' },
-        fmta('lr({ <> })<>', {
-            iv(1),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = 'lr[', wordTrig = false, snippetType = 'autosnippet' },
-        fmta('lr([ <> ])<>', {
-            iv(1),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    -- TODO: Really hink about if you want these vvv
+    --- Implemented in template
     -- s(
-    --     { trig = '(', wordTrig = false, desc = 'Autopairs', snippetType = 'autosnippet' },
-    --     fmta('(<>)<>', {
-    --         iv(1),
+    --     { trig = 'hat', wordTrig = false, snippetType = 'autosnippet' },
+    --     fmta([[accent(<>, "^")]], {
     --         i(0),
     --     }),
-    --     { condition = -in_textzone * (in_mathzone + in_codezone) }
+    --     { condition = in_mathzone * trigger_does_not_follow_alpha_char }
     -- ),
-    -- s(
-    --     { trig = '{', desc = 'Autopairs', snippetType = 'autosnippet' },
-    --     fmta('{<>}<>', {
-    --         iv(1),
-    --         i(0),
-    --     }),
-    --     { condition = in_mathzone + in_codezone }
-    -- ),
-    -- s(
-    --     { trig = '[', wordTrig = false, desc = 'Autopairs', snippetType = 'autosnippet' },
-    --     fmta('[<>]<>', {
-    --         iv(1),
-    --         i(0),
-    --     }),
-    --     { condition = in_mathzone + in_codezone }
-    -- ),
-    -- -- TODO: Really hink about if you want these ^^^
-    -- s(
-    --     { trig = [["]], wordTrig = false, snippetType = 'autosnippet' },
-    --     fmta([["<>"<>]], {
-    --         iv(1),
-    --         i(0),
-    --     }),
-    --     { condition = trigger_does_not_follow_alpha_char * (in_mathzone + in_codezone) }
-    -- ),
-    -- s(
-    --     { trig = '`', wordTrig = false, snippetType = 'autosnippet' },
-    --     fmta('`<>`<>', {
-    --         i(1),
-    --         i(0),
-    --     }),
-    --     { condition = -in_mathzone }
-    -- ),
-    -- NOTE: Typst is the same!
-    -- s(
-    --   { trig = "exists", wordTrig = false, snippetType = "autosnippet" },
-    --   t("\\exists"),
-    --   { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    -- ),
-    -- NOTE: Typst is the same!
-    -- s(
-    --   { trig = "forall", wordTrig = false, snippetType = "autosnippet" },
-    --   t("\\forall"),
-    --   { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    -- ),
-    --- Accents - Tilde
-    s(
-        { trig = 'tilde', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[tilde<>]], {
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    --- Accents - hat
-    s(
-        { trig = 'hat', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[accent(<>, "^")]], {
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    --- BAR
-    --   TODO: Which is faster? These two? or the dynamic node one?
-    --- Enter display mode quickly
+    --- 6.Math environment
+    --- 6.1 Enter math mode
     s(
         { trig = 'MM', wordTrig = false, regTrig = false, snippetType = 'autosnippet' },
         fmta(
@@ -707,175 +516,7 @@ $<>]],
         }),
         { condition = trigger_does_not_follow_alpha_char }
     ),
-    s(
-        { trig = '(%a)mb', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[upright(bold(<>))<>]], {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = 'mb', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[upright(bold(<>))<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    s(
-        { trig = 'mB', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[bb(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    s(
-        { trig = '(%a)mB', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[bb(<>)<>]], {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = 'mf', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[frak(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    s(
-        { trig = '(%a)mf', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[frak(<>)<>]], {
-            f(function(_, snip)
-                return snip.captures[1]
-            end),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    -- FRACTION
-    s(
-        { trig = 'ff', wordTrig = false, snippetType = 'autosnippet' },
-        fmta('frac(<>,<>)<>', {
-            d(1, get_visual),
-            i(2),
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    -- SUMMATION
-    s(
-        { trig = 'sum', wordTrig = false, snippetType = 'autosnippet' },
-        fmta('sum_(<>)^(<>)<>', {
-            d(1, get_visual),
-            i(2),
-            i(0),
-        }),
-        { condition = in_mathzone * trigger_does_not_follow_alpha_char }
-    ),
-    s(
-        { trig = 'mc', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[cal(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = 'mcal', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[cal(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    s(
-        { trig = 'cal', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[cal(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = in_mathzone }
-    ),
-    -- SECTION
-    s(
-        { trig = 'h1', snippetType = 'autosnippet' },
-        fmta(
-            [[= <> <<sec:<>>>
-<>]],
-            {
-                iv(1),
-                l(l._1:gsub('%s', '-'), 1),
-                i(0),
-            }
-        ),
-        { condition = in_textzone }
-    ),
-    -- SUBSECTION
-    s(
-        { trig = 'h2', snippetType = 'autosnippet' },
-        fmta(
-            [[== <>  <<subsec:<>>>
-<>]],
-            {
-                iv(1),
-                l(l._1:gsub('%s', '-'), 1),
-                i(0),
-            }
-        ),
-        { condition = in_textzone }
-    ),
-    -- SUBSUBSECTION
-    s(
-        { trig = 'h3', snippetType = 'autosnippet' },
-        fmta(
-            [[=== <>  <<subsubsec:<>>>
-<>]],
-            {
-                iv(1),
-                l(l._1:gsub('%s', '-'), 1),
-                i(0),
-            }
-        ),
-        { condition = in_textzone }
-    ),
-    s(
-        { trig = 'h4', snippetType = 'autosnippet' },
-        fmta(
-            [[par(
-  // leading: length,
-  // spacing: length,
-  // justify: bool,
-  // linebreaks: autostr,
-  // first-line-indent: lengthdictionary,
-  // hanging-indent: length,
-  <>) <<paragraph:<>>>
-<>]],
-            {
-                iv(1),
-                l(l._1:gsub('%s', '-'), 1),
-                i(0),
-            }
-        ),
-        { condition = in_textzone }
-    ),
-    --   Not supported in typst
-    --   s(
-    --     { trig = "h5", snippetType = "autosnippet" },
-    --     fmta([[\subparagraph{<>}]], {
-    --       d(1, get_visual),
-    --     }),
-    --     { condition = in_textzone }
-    --   ),
-    --- PART (only applicable to book document class)
+    --- 6.2 Text in math
     s(
         { trig = 'tt', wordTrig = false, snippetType = 'autosnippet' },
         fmta([["<>"<>]], {
@@ -884,176 +525,89 @@ $<>]],
         }),
         { condition = trigger_does_not_follow_alpha_char * in_mathzone }
     ),
-    s(
-        { trig = 'tii', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[italic(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = trigger_does_not_follow_alpha_char * in_mathzone }
-    ),
-    s(
-        { trig = 'tii', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[_<>_<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = trigger_does_not_follow_alpha_char * in_textzone }
-    ),
-    s(
-        { trig = 'tbb', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[bold(<>)<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = trigger_does_not_follow_alpha_char * in_mathzone }
-    ),
-    s(
-        { trig = 'tbb', wordTrig = false, snippetType = 'autosnippet' },
-        fmta([[*<>*<>]], {
-            d(1, get_visual),
-            i(0),
-        }),
-        { condition = trigger_does_not_follow_alpha_char * in_textzone }
-    ),
-    --- GREEK BEGIN
-    s({ trig = ';a', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'alpha',
+
+    --- 6.2.1 Greek letters
+    s({ trig = 'ga', wordTrig = false, snippetType = 'autosnippet' }, {
+        t 'α',
+        --t 'alpha',
     }),
-    s({ trig = ';b', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'beta',
+    s({ trig = 'gb', wordTrig = false, desc= 'beta', snippetType = 'autosnippet' }, {
+        t 'β',
     }),
-    s({ trig = ';g', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'gamma',
+    s({ trig = 'gg', wordTrig = false, desc= 'gamma', snippetType = 'autosnippet' }, {
+        t 'γ',
     }),
-    s({ trig = ';G', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Gamma',
+    s({ trig = 'gG', wordTrig = false, desc= 'Gamma', snippetType = 'autosnippet' }, {
+        t 'Γ',
     }),
-    s({ trig = ';d', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'delta',
+    s({ trig = 'gd', wordTrig = false, desc= 'delta', snippetType = 'autosnippet' }, {
+        t 'δ',
     }),
-    s({ trig = ';D', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Delta',
+    s({ trig = 'gD', wordTrig = false, desc= 'Delta', snippetType = 'autosnippet' }, {
+        t 'Δ',
     }),
-    s({ trig = ';e', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'epsilon',
+    s({ trig = 'ge', wordTrig = false, desc= 'epsilon', snippetType = 'autosnippet' }, {
+        t 'ε',
     }),
-    s({ trig = ';ve', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'varepsilon',
+    s({ trig = 'gE', wordTrig = false, desc= 'epsilon alt', snippetType = 'autosnippet' }, {
+        t 'ϵ',
     }),
-    s({ trig = ';z', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'zeta',
+    s({ trig = 'gz', wordTrig = false, desc= 'zeta', snippetType = 'autosnippet' }, {
+        t 'ζ',
     }),
-    s({ trig = ';h', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'eta',
+    s({ trig = 'gt', wordTrig = false, desc= 'theta', snippetType = 'autosnippet' }, {
+        t 'θ',
     }),
-    s({ trig = ';o', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'theta',
+    s({ trig = 'gT', wordTrig = false, desc= 'Theta', snippetType = 'autosnippet' }, {
+        t 'Θ',
     }),
-    s({ trig = ';vo', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'vartheta',
+    s({ trig = 'gl', wordTrig = false, desc= 'lambda', snippetType = 'autosnippet' }, {
+        t 'λ',
     }),
-    s({ trig = ';O', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Theta',
+    s({ trig = 'gL', wordTrig = false, desc= 'Lambda', snippetType = 'autosnippet' }, {
+        t 'Λ',
     }),
-    s({ trig = ';k', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'kappa',
+    s({ trig = 'gm', wordTrig = false, desc= 'mu', snippetType = 'autosnippet' }, {
+        t 'μ',
     }),
-    s({ trig = ';l', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'lambda',
+    s({ trig = 'gn', wordTrig = false, desc= 'nu', snippetType = 'autosnippet' }, {
+        t 'ν',
     }),
-    s({ trig = ';L', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Lambda',
+    s({ trig = 'gx', wordTrig = false, desc= 'xi', snippetType = 'autosnippet' }, {
+        t 'ξ',
     }),
-    s({ trig = ';m', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'mu',
+    s({ trig = 'gX', wordTrig = false, desc= 'Xi', snippetType = 'autosnippet' }, {
+        t 'Ξ',
     }),
-    s({ trig = ';n', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'nu',
+    s({ trig = 'gr', wordTrig = false, desc= 'rho', snippetType = 'autosnippet' }, {
+        t 'ρ',
     }),
-    s({ trig = ';x', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'xi',
+    s({ trig = 'gs', wordTrig = false, desc= 'sigma', snippetType = 'autosnippet' }, {
+        t 'σ',
     }),
-    s({ trig = ';X', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Xi',
+    s({ trig = 'gf', wordTrig = false, desc= 'phi', snippetType = 'autosnippet' }, {
+        t 'φ',
     }),
-    s({ trig = ';i', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'pi',
+    s({ trig = 'gF', wordTrig = false, desc= 'Phi', snippetType = 'autosnippet' }, {
+        t 'Φ',
     }),
-    s({ trig = ';I', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Pi',
+    s({ trig = 'gc', wordTrig = false, desc= 'chi', snippetType = 'autosnippet' }, {
+        t 'χ',
     }),
-    s({ trig = ';r', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'rho',
+    s({ trig = 'gp', wordTrig = false, desc= 'psi', snippetType = 'autosnippet' }, {
+        t 'ψ',
     }),
-    s({ trig = ';s', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'sigma',
+    s({ trig = 'gP', wordTrig = false, desc= 'Psi', snippetType = 'autosnippet' }, {
+        t 'Ψ',
     }),
-    s({ trig = ';S', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Sigma',
+    s({ trig = 'gw', wordTrig = false, desc= 'gamma', snippetType = 'autosnippet' }, {
+        t 'ω',
     }),
-    s({ trig = ';t', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'tau',
+    s({ trig = 'gW', wordTrig = false, desc= 'Gamma', snippetType = 'autosnippet' }, {
+        t 'Ω',
     }),
-    s({ trig = ';f', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'phi',
-    }),
-    s({ trig = ';vf', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'varphi',
-    }),
-    s({ trig = ';F', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Phi',
-    }),
-    s({ trig = ';c', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'chi',
-    }),
-    s({ trig = ';p', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'psi',
-    }),
-    s({ trig = ';P', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Psi',
-    }),
-    s({ trig = ';w', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'omega',
-    }),
-    s({ trig = ';W', wordTrig = false, snippetType = 'autosnippet' }, {
-        t 'Omega',
-    }),
-    --   s(
-    --     { trig = "al", snippetType = "autosnippet" },
-    --     fmta(
-    --       [[
-    -- $
-    --   <> & <> \
-    --   <>
-    -- $
-    --       ]],
-    --       {
-    --         i(1),
-    --         i(2),
-    --         i(0),
-    --       }
-    --     ),
-    --     { condition = line_begin }
-    --   ),
-    s(
-        { trig = 'bb', regTrig = true, snippetType = 'autosnippet' },
-        fmta(
-            [[
-        #<>[
-<>
-]<>
-      ]],
-            {
-                i(1),
-                d(2, get_visual),
-                i(0),
-            }
-        ),
-        { condition = line_begin }
-    ),
     -- Matrices and Cases
-    s(
+    s( --- CY DUBIOUS
         {
             trig = '([bBpvV]?)mat(%d+)x(%d+)',
             name = '[bBpvV]matrix',
@@ -1084,7 +638,7 @@ mat(delim:<>,
         { condition = in_mathzone }
     ),
 
-    s(
+    s( -- CY DUBIOUS
         { trig = '(%d?)cases', name = 'cases', desc = 'cases', regTrig = true, snippetType = 'autosnippet' },
         fmta(
             [[
@@ -1096,34 +650,4 @@ cases(
         { condition = in_mathzone }
     ),
 
-    s(
-        { trig = 'plotf', name = 'Plot Function', desc = 'Plot a function using Cetz', snippetType = 'autosnippet' },
-        fmta(
-            [[
-canvas({
-plot.plot(size: (5, 5), {
-    plot.add(domain: (<>, <>), { x =>> <> })
-})})<>]],
-            { i(1, '0'), i(2, '5'), i(3, 'calc.pow(x,2)'), i(0) }
-        ),
-        { condition = -in_mathzone }
-    ),
-
-    s(
-        {
-            trig = '#imagefig',
-            name = 'Image Function',
-            desc = 'Adds a figure showing an image',
-            snippetType = 'autosnippet',
-        },
-        fmta(
-            [[
-#figure(
-  image(<>),
-  caption: [<>]
-)]],
-            { iv(1), i(2) }
-        ),
-        { condition = -in_mathzone }
-    ),
 }
